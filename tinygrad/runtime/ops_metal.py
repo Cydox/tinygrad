@@ -6,15 +6,18 @@ from tinygrad.codegen.cstyle import CStyleCodegen, CStyleLanguage
 from tinygrad.helpers import prod, getenv, DEBUG, DType, dtypes
 from tinygrad.ops import Compiled
 from tinygrad.runtime.lib import RawBufferMapped
+import logging
+LOGGER = logging.getLogger(__name__)
 
 METAL_XCODE = getenv("METAL_XCODE")
 
 class _METAL:
   def __init__(self):
+    LOGGER.info("heyhey")
     self.mtl_buffers_in_flight: List[Any] = []
     self.device = Metal.MTLCreateSystemDefaultDevice()
     self.mtl_queue = self.device.newCommandQueue()
-    print("Metal GPU:", self.device.name())
+    LOGGER.info("Metal GPU:", self.device.name())
   # TODO: is there a better way to do this?
   def synchronize(self):
     for cbuf in self.mtl_buffers_in_flight: cbuf.waitUntilCompleted()

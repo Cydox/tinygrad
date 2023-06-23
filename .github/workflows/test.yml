@@ -208,7 +208,7 @@ jobs:
     - name: Install Dependencies
       run: pip install -e '.[metal,testing]'
     - name: Run dtype test
-      run: DEBUG=4 METAL=1 python -m pytest test/test_dtype.py
+      run: DEBUG=4 METAL=1 python -m pytest test/test_dtype.py -o log_cli=true
     - name: Run ops test
       run: DEBUG=2 METAL=1 python -m pytest test/test_ops.py
     # dtype test has issues on test_half_to_int8
