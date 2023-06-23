@@ -207,6 +207,8 @@ jobs:
         python-version: 3.11
     - name: Install Dependencies
       run: pip install -e '.[metal,testing]'
+    - name: Run metal gpu print
+      run: python test/metal_gpu.py
     - name: Run dtype test
       run: DEBUG=4 METAL=1 python -m pytest test/test_dtype.py -s
     - name: Run ops test
