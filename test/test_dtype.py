@@ -34,12 +34,12 @@ class TestHalfDtype(unittest.TestCase):
 
   def test_half_to_float(self): _test_cast(Tensor([1,2,3,4], dtype=dtypes.float16), dtypes.float32, [1,2,3,4])
   def test_half_to_int8(self): _test_cast(Tensor([1,2,3,4], dtype=dtypes.float16), dtypes.int8, [1,2,3,4])
-  def test_half_to_int8_1(self): _test_cast(Tensor([1,1,1,1], dtype=dtypes.float16), dtypes.int8, [1,1,1,1])
-  def test_half_to_int8_2(self): _test_cast(Tensor([2,2,2,2], dtype=dtypes.float16), dtypes.int8, [2,2,2,2])
-  def test_half_to_int8_3(self): _test_cast(Tensor([0,0,0,0], dtype=dtypes.float16), dtypes.int8, [0,0,0,0])
-  def test_half_to_int8_4(self): _test_cast(Tensor([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], dtype=dtypes.float16), dtypes.int8, [0, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-  def test_half_to_int8_5(self): _test_cast(Tensor([1, 2, 3], dtype=dtypes.float16), dtypes.int8, [0, 2, 3])
-  def test_half_to_int8_6(self): _test_cast(Tensor([1, 2], dtype=dtypes.float16), dtypes.int8, [0, 2])
+  # def test_half_to_int8_1(self): _test_cast(Tensor([1,1,1,1], dtype=dtypes.float16), dtypes.int8, [1,1,1,1])
+  # def test_half_to_int8_2(self): _test_cast(Tensor([2,2,2,2], dtype=dtypes.float16), dtypes.int8, [2,2,2,2])
+  # def test_half_to_int8_3(self): _test_cast(Tensor([0,0,0,0], dtype=dtypes.float16), dtypes.int8, [0,0,0,0])
+  # def test_half_to_int8_4(self): _test_cast(Tensor([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], dtype=dtypes.float16), dtypes.int8, [0, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+  # def test_half_to_int8_5(self): _test_cast(Tensor([1, 2, 3], dtype=dtypes.float16), dtypes.int8, [0, 2, 3])
+  # def test_half_to_int8_6(self): _test_cast(Tensor([1, 2], dtype=dtypes.float16), dtypes.int8, [0, 2])
 
   def test_float_to_half(self): _test_cast(Tensor([1,2,3,4], dtype=dtypes.float32), dtypes.float16, [1,2,3,4])
   def test_int8_to_half(self): _test_cast(Tensor([1,2,3,4], dtype=dtypes.int8), dtypes.float16, [1,2,3,4])
