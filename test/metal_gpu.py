@@ -1,9 +1,6 @@
-import os, subprocess, pathlib
 import Metal, Cocoa, libdispatch
 from typing import List, Any
-from tinygrad.codegen.cstyle import CStyleCodegen, CStyleLanguage
 from tinygrad.helpers import prod, getenv, DEBUG, DType, dtypes
-from tinygrad.ops import Compiled
 from tinygrad.runtime.lib import RawBufferMapped
 import tinygrad.helpers as helpers
 import numpy as np
@@ -28,7 +25,7 @@ def unwrap(x):
 shader = """
 #include <metal_stdlib>
 using namespace metal;
-kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
+kernel void E_4(device half* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
     float4 val1_0 = (float4)(((device half4*)data1)[0]);
     data0[0] = val1_0.x;
     data0[1] = val1_0.y;
@@ -68,7 +65,7 @@ class RawMetalBuffer(RawBufferMapped):
     return self._buf.contents().as_buffer(self._buf.length())
 
 
-buf1 = RawMetalBuffer(4, helpers.dtypes.int8)
+buf1 = RawMetalBuffer(4, helpers.dtypes.float16)
 buf2 = RawMetalBuffer(4, helpers.dtypes.float16)
 
 buf2._copyin(np.array([1, 2, 3, 4], dtype=np.float16))
