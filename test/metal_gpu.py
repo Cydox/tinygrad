@@ -25,12 +25,16 @@ def unwrap(x):
 shader = """
 #include <metal_stdlib>
 using namespace metal;
-kernel void E_4(device half* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
-    float4 val1_0 = (float4)(((device half4*)data1)[0]);
-    data0[0] = val1_0.x;
-    data0[1] = val1_0.y;
-    data0[2] = val1_0.z;
-    data0[3] = val1_0.w;
+kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
+    //float4 val1_0 = (float4)(((device half4*)data1)[0]);
+    //data0[0] = val1_0.x;
+    //data0[1] = val1_0.y;
+    //data0[2] = val1_0.z;
+    //data0[3] = val1_0.w;
+    data0[0] = data1[0];
+    data0[1] = data1[1];
+    data0[2] = data1[2];
+    data0[3] = data1[3];
     threadgroup_barrier(mem_flags::mem_threadgroup);
     if (0 == 0) {
   } /* local */
@@ -65,7 +69,7 @@ class RawMetalBuffer(RawBufferMapped):
     return self._buf.contents().as_buffer(self._buf.length())
 
 
-buf1 = RawMetalBuffer(4, helpers.dtypes.float16)
+buf1 = RawMetalBuffer(4, helpers.dtypes.int8)
 buf2 = RawMetalBuffer(4, helpers.dtypes.float16)
 
 buf2._copyin(np.array([1, 2, 3, 4], dtype=np.float16))
