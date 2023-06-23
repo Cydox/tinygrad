@@ -38,7 +38,7 @@ class AssemblyCodegen(Linearizer):
   # s registers are the addresses and non local indexes
   def codegen(self):
     self.process()
-    self.hand_coded_optimizations()
+    # self.hand_coded_optimizations()
     self.limit_global_dims(3)  # all GPU asms have 3 (for now)
     self.linearize()
 
