@@ -104,11 +104,11 @@ kernel void E_4(device char* data0, const device half* data1, uint3 gid [[thread
     //simdgroup_barrier(mem_flags::mem_threadgroup);
     data0[0] = val1_0.x + data0[1];
     data0[1] = val1_0.y;
-    if (data0[1] != val1_0.y) {
-      return;
-    }
     data0[2] = val1_0.z;
     data0[3] = val1_0.w + data0[1];
+    if (data0[1] != val1_0.y) {
+      data0[3] = -110;
+    }
     threadgroup_barrier(mem_flags::mem_threadgroup);
     if (0 == 0) {
   } /* local */
