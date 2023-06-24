@@ -41,25 +41,25 @@ kernel void E_4(device char* data0, const device half* data1, uint3 gid [[thread
  /* global */
 }
 """
-shader = """
-#include <metal_stdlib>
-using namespace metal;
-// with float4 disabled
-kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
-    half val1_0 = data1[0];
-    half val1_1 = data1[1];
-    half val1_2 = data1[2];
-    half val1_3 = data1[3];
-    data0[0] = val1_0;
-    data0[1] = val1_1;
-    data0[2] = val1_2;
-    data0[3] = val1_3;
-    threadgroup_barrier(mem_flags::mem_threadgroup);
-    if (0 == 0) {
-  } /* local */
- /* global */
-}
-"""
+# shader = """
+# #include <metal_stdlib>
+# using namespace metal;
+# // with float4 disabled
+# kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
+#     half val1_0 = data1[0];
+#     half val1_1 = data1[1];
+#     half val1_2 = data1[2];
+#     half val1_3 = data1[3];
+#     data0[0] = val1_0;
+#     data0[1] = val1_1;
+#     data0[2] = val1_2;
+#     data0[3] = val1_3;
+#     threadgroup_barrier(mem_flags::mem_threadgroup);
+#     if (0 == 0) {
+#   } /* local */
+#  /* global */
+# }
+# """
 
 options = Metal.MTLCompileOptions.alloc().init()
 library = unwrap(device.newLibraryWithSource_options_error_(shader, options, None))
