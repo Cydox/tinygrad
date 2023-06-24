@@ -46,10 +46,10 @@ shader = """
 using namespace metal;
 // with float4 disabled
 kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
-    float val1_0 = data1[0];
-    float val1_1 = data1[1];
-    float val1_2 = data1[2];
-    float val1_3 = data1[3];
+    half val1_0 = data1[0];
+    half val1_1 = data1[1];
+    half val1_2 = data1[2];
+    half val1_3 = data1[3];
     data0[0] = val1_0;
     data0[1] = val1_1;
     data0[2] = val1_2;
