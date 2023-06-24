@@ -102,7 +102,7 @@ using namespace metal;
 kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
     float4 val1_0 = (float4)(((device half4*)data1)[0]);
     //simdgroup_barrier(mem_flags::mem_threadgroup);
-    data0[0] = val1_0.x;
+    data0[0] = val1_0.x + data0[1];
     data0[1] = val1_0.y;
     data0[2] = val1_0.z;
     data0[3] = val1_0.w + val1_0.y;
