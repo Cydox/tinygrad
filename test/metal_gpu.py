@@ -102,6 +102,7 @@ using namespace metal;
 kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
     float4 val1_0 = (float4)(((device half4*)data1)[0]);
     //simdgroup_barrier(mem_flags::mem_threadgroup);
+    asm ("nop");
     data0[0] = val1_0.x;
     data0[1] = val1_0.y;
     data0[2] = val1_0.z;
@@ -110,6 +111,19 @@ kernel void E_4(device char* data0, const device half* data1, uint3 gid [[thread
     if (0 == 0) {
   } /* local */
  /* global */
+}
+"""
+shader = """
+#include <metal_stdlib>
+using namespace metal;
+kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
+{ int gidx0 = gid.x;  /* 10 */
+    float val1_0 = data1[gidx0];
+    data0[gidx0] = val1_0;
+    threadgroup_barrier(mem_flags::mem_threadgroup);
+    if (0 == 0) {
+  } /* local */
+} /* global */
 }
 """
 
@@ -154,7 +168,7 @@ command_buffer = mtl_queue.commandBuffer()
 encoder = command_buffer.computeCommandEncoder()
 encoder.setComputePipelineState_(pipeline_state)
 for i,a in enumerate(bufs): encoder.setBuffer_offset_atIndex_(a._buf, 0, i)
-encoder.dispatchThreadgroups_threadsPerThreadgroup_(Metal.MTLSize(*[1, 1, 1]), Metal.MTLSize(*[1, 1, 1]))
+encoder.dispatchThreadgroups_threadsPerThreadgroup_(Metal.MTLSize(*[4, 1, 1]), Metal.MTLSize(*[4, 1, 1]))
 encoder.endEncoding()
 command_buffer.commit()
 
