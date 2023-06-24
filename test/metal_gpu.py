@@ -161,4 +161,5 @@ command_buffer.commit()
 command_buffer.waitUntilCompleted()
 
 print(buf1.toCPU())
+print(buf2.toCPU())
 
