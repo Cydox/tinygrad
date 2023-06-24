@@ -34,6 +34,7 @@ class TestHalfDtype(unittest.TestCase):
 
   def test_half_to_float(self): _test_cast(Tensor([1,2,3,4], dtype=dtypes.float16), dtypes.float32, [1,2,3,4])
   def test_half_to_int8(self): _test_cast(Tensor([1,2,3,4], dtype=dtypes.float16), dtypes.int8, [1,2,3,4])
+  def test_half_to_int8_negative(self): _test_cast(Tensor([-1,-2,-3,-4], dtype=dtypes.float16), dtypes.int8, [-1,-2,-3,-4])
   def test_half_to_uint8(self): _test_cast(Tensor([1,2,3,4], dtype=dtypes.float16), dtypes.uint8, [1,2,3,4])
   def test_half_to_int64(self): _test_cast(Tensor([1,2,3,4], dtype=dtypes.float16), dtypes.int64, [1,2,3,4])
 
