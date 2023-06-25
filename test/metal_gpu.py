@@ -1,3 +1,4 @@
+import time
 import Metal, Cocoa, libdispatch
 from typing import List, Any
 from tinygrad.helpers import prod, getenv, DEBUG, DType, dtypes
@@ -171,6 +172,7 @@ buf2._copyin(np.array([1, 2], dtype=np.float16))
 bufs = (buf1, buf2)
 
 
+time.sleep(1.0)
 
 command_buffer = mtl_queue.commandBuffer()
 encoder = command_buffer.computeCommandEncoder()
@@ -182,6 +184,7 @@ command_buffer.commit()
 
 command_buffer.waitUntilCompleted()
 
+time.sleep(1.0)
 print(buf1.toCPU())
 print(buf2.toCPU())
 
