@@ -117,7 +117,7 @@ shader = """
 #include <metal_stdlib>
 using namespace metal;
 // with float4 disabled
-kernel void E_4(device half* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
+kernel void E_4(device char* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
     half val1_0 = data1[0];
     half val1_1 = data1[1];
     half val1_2 = data1[2];
@@ -162,10 +162,10 @@ class RawMetalBuffer(RawBufferMapped):
     return self._buf.contents().as_buffer(self._buf.length())
 
 
-buf1 = RawMetalBuffer(4, helpers.dtypes.float16)
+buf1 = RawMetalBuffer(4, helpers.dtypes.int8)
 buf2 = RawMetalBuffer(4, helpers.dtypes.float16)
 
-buf1._copyin(np.array([100, 100, 100, 100], dtype=np.float16))
+buf1._copyin(np.array([100, 100, 100, 100], dtype=np.int8))
 buf2._copyin(np.array([1, 2, 3, 4], dtype=np.float16))
 
 bufs = (buf1, buf2)
