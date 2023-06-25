@@ -162,11 +162,11 @@ class RawMetalBuffer(RawBufferMapped):
     return self._buf.contents().as_buffer(self._buf.length())
 
 
-buf1 = RawMetalBuffer(4, helpers.dtypes.int8)
-buf2 = RawMetalBuffer(4, helpers.dtypes.float16)
+buf1 = RawMetalBuffer(3, helpers.dtypes.int8)
+buf2 = RawMetalBuffer(3, helpers.dtypes.float16)
 
-buf1._copyin(np.array([100, 100, 100, 100], dtype=np.int8))
-buf2._copyin(np.array([1, 2, 3, 4], dtype=np.float16))
+buf1._copyin(np.array([100, 100, 100], dtype=np.int8))
+buf2._copyin(np.array([1, 2, 3], dtype=np.float16))
 
 bufs = (buf1, buf2)
 
