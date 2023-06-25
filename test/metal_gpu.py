@@ -106,9 +106,27 @@ kernel void E_4(device char* data0, const device half* data1, uint3 gid [[thread
     data0[1] = val1_0.y;
     data0[2] = val1_0.z;
     data0[3] = val1_0.w + data0[1];
-    if (data0[1] != val1_0.y) {
-      data0[3] = -110;
-    }
+    threadgroup_barrier(mem_flags::mem_threadgroup);
+    if (0 == 0) {
+  } /* local */
+ /* global */
+}
+"""
+
+shader = """
+#include <metal_stdlib>
+using namespace metal;
+// with float4 disabled
+kernel void E_4(device half* data0, const device half* data1, uint3 gid [[threadgroup_position_in_grid]], uint3 lid [[thread_position_in_threadgroup]]) {
+    half val1_0 = data1[0];
+    half val1_1 = data1[1];
+    half val1_2 = data1[2];
+    half val1_3 = data1[3];
+    //threadgroup_barrier(mem_flags::mem_threadgroup);
+    data0[0] = val1_0;
+    data0[1] = val1_1;
+    data0[2] = val1_2;
+    data0[3] = val1_3;
     threadgroup_barrier(mem_flags::mem_threadgroup);
     if (0 == 0) {
   } /* local */
@@ -144,10 +162,10 @@ class RawMetalBuffer(RawBufferMapped):
     return self._buf.contents().as_buffer(self._buf.length())
 
 
-buf1 = RawMetalBuffer(4, helpers.dtypes.int8)
+buf1 = RawMetalBuffer(4, helpers.dtypes.float16)
 buf2 = RawMetalBuffer(4, helpers.dtypes.float16)
 
-buf1._copyin(np.array([100, 100, 100, 100], dtype=np.int8))
+buf1._copyin(np.array([100, 100, 100, 100], dtype=np.float16))
 buf2._copyin(np.array([1, 2, 3, 4], dtype=np.float16))
 
 bufs = (buf1, buf2)
@@ -158,7 +176,7 @@ command_buffer = mtl_queue.commandBuffer()
 encoder = command_buffer.computeCommandEncoder()
 encoder.setComputePipelineState_(pipeline_state)
 for i,a in enumerate(bufs): encoder.setBuffer_offset_atIndex_(a._buf, 0, i)
-encoder.dispatchThreadgroups_threadsPerThreadgroup_(Metal.MTLSize(*[4, 1, 1]), Metal.MTLSize(*[4, 1, 1]))
+encoder.dispatchThreadgroups_threadsPerThreadgroup_(Metal.MTLSize(*[1, 1, 1]), Metal.MTLSize(*[1, 1, 1]))
 encoder.endEncoding()
 command_buffer.commit()
 
