@@ -124,7 +124,7 @@ kernel void E_4(device char* data0, const device half* data1, uint3 gid [[thread
     //half val1_3 = data1[3];
     //threadgroup_barrier(mem_flags::mem_none);
     data0[0] = static_cast<char>(val1_0);
-    data0[1] = static_cast<char>(val1_1);
+    data0[1] = static_cast<char>(val1_1) + 1;
     //data0[2] = static_cast<char>(val1_2);
     //data0[3] = static_cast<char>(val1_3);
     threadgroup_barrier(mem_flags::mem_threadgroup);
